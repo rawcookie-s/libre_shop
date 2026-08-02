@@ -45,20 +45,23 @@ end
 
 
 
+
 function LibreShop.Load()
-    include("libre_shop/util.lua")
-    include("libre_shop/items.lua")
+    timer.Simple(0.2, function()
+        include("libre_shop/util.lua")
+        include("libre_shop/items.lua")
 
-    if SERVER then
-        include("libre_shop/detours.lua")
-        include("libre_shop/handler.lua")
-    end
+        if SERVER then
+            include("libre_shop/detours.lua")
+            include("libre_shop/handler.lua")
+        end
 
-    if CLIENT then
-        include("libre_shop/vgui.lua")
-        include("libre_shop/menu.lua")
-    end
+        if CLIENT then
+            include("libre_shop/vgui.lua")
+            include("libre_shop/menu.lua")
+        end
+    end)
 end
 
 // scew you leme
-hook.Add("PostGamemodeLoaded", "LibreShop::Load", LibreShop.Load)
+hook.Add("InitPostEntity", "LibreShop::Load", LibreShop.Load)
