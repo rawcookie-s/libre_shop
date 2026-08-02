@@ -1,12 +1,11 @@
-// fuck you leme
+// nice things
 
-
-local setcredits = LibreSC.SetCreditsFor
+LibreSC.OriginalSetCreditsFor = LibreSC.OriginalSetCreditsFor or LibreSC.SetCreditsFor
 
 function LibreSC:SetCreditsFor(steamid, credits)
     local before = self:GetCreditsFor(steamid)
 
-    setcredits(self, steamid, credits)
+    self:OriginalSetCreditsFor(steamid, credits)
 
     hook.Run("LibreSC::OnBalanceChange", steamid, before, credits)
 end
