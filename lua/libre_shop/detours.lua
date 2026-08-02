@@ -7,5 +7,5 @@ function LibreSC:SetCreditsFor(steamid, credits)
 
     LibreSCOriginalSetCreditsFor(self, steamid, credits)
 
-    hook.Run("LibreSC::OnBalanceChange", steamid, before, credits)
+    hook.Run("LibreSC::OnBalanceChange", steamid, before, self:GetCreditsFor(steamid))
 end
