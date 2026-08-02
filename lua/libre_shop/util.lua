@@ -65,7 +65,9 @@ if CLIENT then
         return self.Balance
     end
 
-    timer.Simple(2, function()
+    hook.Add("CreateMove", "LibreShop::Initialized", (ucmd)
+        hook.Remove("CreateMove", "LibreShop::Initialized")
+        
         net.Start("LibreShop::GetBalance")
         net.SendToServer()
     end)
