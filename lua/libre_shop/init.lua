@@ -46,21 +46,19 @@ end
 
 
 function LibreShop.Load()
-    timer.Simple(0.5, function() // delay needed so functions can be detoured
-        include("libre_shop/util.lua")
-        include("libre_shop/items.lua")
+    include("libre_shop/util.lua")
+    include("libre_shop/items.lua")
 
-        if SERVER then
-            include("libre_shop/detours.lua")
-            include("libre_shop/handler.lua")
-        end
+    if SERVER then
+        include("libre_shop/detours.lua")
+        include("libre_shop/handler.lua")
+    end
 
-        if CLIENT then
-            include("libre_shop/vgui.lua")
-            include("libre_shop/menu.lua")
-        end
-    end)
+    if CLIENT then
+        include("libre_shop/vgui.lua")
+        include("libre_shop/menu.lua")
+    end
 end
 
-// curse you leme for loading sc with this hook
-hook.Add("InitPostEntity", "LibreShop::Load", LibreShop.Load)
+// scew you leme
+hook.Add("PostGamemodeLoaded", "LibreShop::Load", LibreShop.Load)
