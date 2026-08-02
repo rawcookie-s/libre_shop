@@ -65,10 +65,12 @@ if CLIENT then
         return self.Balance
     end
 
-    hook.Add("CreateMove", "LibreShop::Initialized", (ucmd)
-        hook.Remove("CreateMove", "LibreShop::Initialized")
-        
-        net.Start("LibreShop::GetBalance")
-        net.SendToServer()
+    hook.Add("CreateMove", "LibreShop::Initialized", function(eplayer, ucmd)
+        if ucmd:GetButtons() ~= 0 and ucmd:TickCount() ~= 0 then
+            hook.Remove("CreateMove", "LibreShop::Initialized")
+
+            net.Start("LibreShop::GetBalance")
+            net.SendToServer()
+        end
     end)
 end
