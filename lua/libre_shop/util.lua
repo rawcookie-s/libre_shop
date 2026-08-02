@@ -9,13 +9,13 @@ if SERVER then
         if !eplayer then return end
 
         net.Start("LibreShop::UpdateBalance")
-        net.WriteInt(now, 32)
+        net.WriteDouble(now)
         net.Send(eplayer)
     end)
 
     net.Receive("LibreShop::GetBalance", function(ligma, eplayer)
         net.Start("LibreShop::UpdateBalance")
-        net.WriteInt(eplayer:GetSocialCredits(), 32)
+        net.WriteDouble(eplayer:GetSocialCredits())
         net.Send(eplayer)
     end)
 end
@@ -31,14 +31,14 @@ function LibreShop:GetItem(itemname)
     // surely there wont be an item with the exact name in two registries right
 end
 
-
+// doesnt exist on client
 function LibreShop:GetDisplayName(amount)
 	amount = amount or 1
 
 	return string.Comma(amount) .. " " .. LibreShop:Pluralize("Social Credit", amount)
 end
 
-
+// also doesnt exist on client
 function LibreShop:Pluralize(estring, amount, suffix)
 	if amount == 1 then
 		return estring
@@ -53,10 +53,9 @@ end
 
 
 
-
 if CLIENT then
     net.Receive("LibreShop::UpdateBalance", function()
-        LibreShop.Balance = net.ReadInt(32)
+        LibreShop.Balance = net.ReadDouble()
 
         hook.Run("LibreShop::UpdateBalance", LibreShop.Balance) // not needed but who cares
     end)
